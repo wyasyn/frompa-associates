@@ -47,6 +47,8 @@ export default function ImageSlider() {
             alt={`Slide ${index + 1}`}
             layout="fill"
             objectFit="cover"
+            placeholder="blur"
+            blurDataURL={imageList[index].blurDataURL}
             className="rounded-xl"
             priority
           />
