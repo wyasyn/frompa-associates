@@ -1,114 +1,58 @@
-import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
+"use client";
 
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { Mail, MapPin, Phone } from "lucide-react";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
+  CardDescription,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
+import { ContactForm } from "@/components/contact/contact-form";
 
 export default function ContactPage() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="w-full py-12 md:py-24 lg:py-32 ">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-2">
-              <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                Contact Us
-              </h1>
-              <p className="mx-auto max-w-[700px]  md:text-xl">
-                Get in touch with our team to learn more about our services and
-                how we can help your business.
-              </p>
-            </div>
-          </div>
+      <section className=" relative w-full py-12 md:py-24 lg:py-32 bg-[url('/grad-light.jpg')] dark:bg-[url('/grad-dark.jpg')] bg-cover bg-center dark:bg-bottom bg-no-repeat">
+        <div className="absolute inset-0 bg-white/50 dark:bg-black/40 backdrop-blur-sm z-0" />
+        <div className="container relative z-10 mx-auto px-4 md:px-6 text-center">
+          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+            Contact Us
+          </h1>
+          <p className="mt-4 mx-auto max-w-prose ">
+            Have questions? Our team is ready to discuss how we can support your
+            organization's financial goals.
+          </p>
         </div>
       </section>
 
-      {/* Contact Form Section */}
+      {/* Contact Form & Info Section */}
       <section className="w-full py-12 md:py-24 lg:py-32">
-        <div className="container px-4 md:px-6">
-          <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
-            <div className="space-y-4">
-              <h2 className="text-3xl font-bold tracking-tighter">
-                Get In Touch
-              </h2>
-              <p>
-                Fill out the form below and one of our representatives will get
-                back to you as soon as possible.
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
+            {/* Contact Form */}
+            <div className="space-y-6">
+              <h2 className="text-2xl font-semibold">Send Us a Message</h2>
+              <p className="text-muted-foreground">
+                Fill out the form below, and we’ll get back to you within one
+                business day.
               </p>
-              <form className="space-y-4">
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="space-y-2">
-                    <Label htmlFor="first-name">First name</Label>
-                    <Input
-                      id="first-name"
-                      placeholder="Enter your first name"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="last-name">Last name</Label>
-                    <Input id="last-name" placeholder="Enter your last name" />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="Enter your email"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="phone">Phone</Label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    placeholder="Enter your phone number"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="service">Service of Interest</Label>
-
-                  <select
-                    name="service"
-                    title="Service of Interest"
-                    id="service"
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                  >
-                    <option value="">Select a service</option>
-                    <option value="advisory">Advisory</option>
-                    <option value="accounting">Accounting</option>
-                    <option value="audit">Audit & Assurance</option>
-                    <option value="tax">Corporate Tax</option>
-                    <option value="trade">Trade Finance</option>
-                  </select>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="message">Message</Label>
-                  <Textarea
-                    id="message"
-                    placeholder="Enter your message"
-                    className="min-h-[120px]"
-                  />
-                </div>
-                <Button type="submit" className="w-full ">
-                  Send Message <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </form>
+              <ContactForm
+                onSubmit={(data) => {
+                  console.log(data);
+                }}
+              />
             </div>
-            <div className="space-y-4">
-              <h2 className="text-3xl font-bold tracking-tighter">
-                Contact Information
-              </h2>
-              <p>You can also reach us using the contact information below.</p>
+
+            {/* Contact Details */}
+            <div className="space-y-6">
+              <h2 className="text-2xl font-semibold">Contact Information</h2>
+              <p className="text-muted-foreground">
+                Or reach us directly via the details below.
+              </p>
+
               <div className="grid gap-4 sm:grid-cols-2">
                 <Card>
                   <CardHeader>
@@ -116,49 +60,71 @@ export default function ContactPage() {
                     <CardDescription>Our office location</CardDescription>
                   </CardHeader>
                   <CardContent className="flex items-start space-x-2">
-                    <MapPin className="h-5 w-5  mt-0.5" />
-                    <span>123 Financial Street, Business District</span>
+                    <MapPin className="h-5 w-5 mt-1" />
+                    <address className="not-italic text-sm">
+                      Plot 1920, Block 115, Gulama, Kirowoza
+                      <br />
+                      Old Jinja Road, Mukono
+                      <br />
+                      P.O. Box 4660, Kampala, Uganda
+                    </address>
                   </CardContent>
                 </Card>
+
                 <Card>
                   <CardHeader>
                     <CardTitle>Phone</CardTitle>
-                    <CardDescription>Call us directly</CardDescription>
+                    <CardDescription>Call us</CardDescription>
                   </CardHeader>
-                  <CardContent className="flex items-start space-x-2">
-                    <Phone className="h-5 w-5 " />
-                    <span>+1 (555) 123-4567</span>
+                  <CardContent className="flex flex-col space-y-1 text-sm">
+                    <div className="flex items-center space-x-2">
+                      <Phone className="h-5 w-5" />
+                      <span>+256 783 416 629</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Phone className="h-5 w-5" />
+                      <span>+256 757 634 878</span>
+                    </div>
                   </CardContent>
                 </Card>
+
                 <Card>
                   <CardHeader>
                     <CardTitle>Email</CardTitle>
                     <CardDescription>Send us an email</CardDescription>
                   </CardHeader>
-                  <CardContent className="flex items-start space-x-2">
-                    <Mail className="h-5 w-5  mt-0.5" />
-                    <span>info@frompa-associates.com</span>
+                  <CardContent className="flex items-start space-x-2 text-sm">
+                    <Mail className="h-5 w-5 mt-1" />
+                    <Link
+                      href="mailto:info@frompaandassociates.com"
+                      className="hover:underline"
+                    >
+                      info@frompaandassociates.com
+                    </Link>
                   </CardContent>
                 </Card>
+
                 <Card>
                   <CardHeader>
                     <CardTitle>Hours</CardTitle>
-                    <CardDescription>Our working hours</CardDescription>
+                    <CardDescription>Office hours</CardDescription>
                   </CardHeader>
-                  <CardContent className="space-y-2">
-                    <p>Monday - Friday: 9:00 AM - 5:00 PM</p>
-                    <p>Saturday - Sunday: Closed</p>
+                  <CardContent className="space-y-1 text-sm">
+                    <p>Monday – Friday: 9:00 AM – 5:00 PM</p>
+                    <p>Saturday – Sunday: Closed</p>
                   </CardContent>
                 </Card>
               </div>
+
+              {/* Map Embed */}
               <div className="mt-6">
                 <iframe
-                  title="Google Maps"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.215266754809!2d-73.9878584!3d40.7484405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9aeb1c6b5%3A0x35b1cfbc89a6097f!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1620247254223!5m2!1sen!2sus"
+                  title="Frompa & Associates Office Location"
+                  src="https://maps.google.com/maps?q=Plot%201920%2C%20Block%20115%2C%20Gulama%2C%20Kirowoza%2C%20Old%20Jinja%20Road%2C%20Mukono%2C%20Uganda&output=embed"
                   allowFullScreen
                   loading="lazy"
                   className="rounded-lg w-full h-[300px] border-0"
-                ></iframe>
+                />
               </div>
             </div>
           </div>
