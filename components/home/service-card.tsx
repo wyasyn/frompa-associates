@@ -32,7 +32,7 @@ export function ServiceCard({
       transition={{ duration: 0.3 }}
       className="group"
     >
-      <Card className="h-full flex flex-col bg-background/80 backdrop-blur-sm">
+      <Card className="h-full flex flex-col bg-background/30">
         <CardHeader className="flex-col items-center text-center pb-0">
           <Icon className="h-12 w-12 text-primary mb-3 transition-colors group-hover:text-accent" />
           <CardTitle className="text-lg font-semibold">{title}</CardTitle>

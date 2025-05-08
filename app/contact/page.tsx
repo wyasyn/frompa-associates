@@ -10,23 +10,17 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { ContactForm } from "@/components/contact/contact-form";
+import ServiceHero from "@/components/accounting/hero";
 
 export default function ContactPage() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className=" relative w-full py-12 md:py-24 lg:py-32 bg-[url('/grad-light.jpg')] dark:bg-[url('/grad-dark.jpg')] bg-cover bg-center dark:bg-bottom bg-no-repeat">
-        <div className="absolute inset-0 bg-white/50 dark:bg-black/40 backdrop-blur-sm z-0" />
-        <div className="container relative z-10 mx-auto px-4 md:px-6 text-center">
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-            Contact Us
-          </h1>
-          <p className="mt-4 mx-auto max-w-prose ">
-            Have questions? Our team is ready to discuss how we can support your
-            organization's financial goals.
-          </p>
-        </div>
-      </section>
+      <ServiceHero
+        title="Contact Us"
+        description=" Have questions? Our team is ready to discuss how we can support your
+            organization's financial goals."
+      />
 
       {/* Contact Form & Info Section */}
       <section className="w-full py-12 md:py-24 lg:py-32">

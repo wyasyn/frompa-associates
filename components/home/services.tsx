@@ -60,14 +60,14 @@ export default function ServicesSection() {
   return (
     <section
       id="services"
-      className="w-full py-12 md:py-24 lg:py-32 bg-secondary "
+      className="w-full py-12 md:py-24 lg:py-40 bg-secondary "
     >
       <div className="container px-4 md:px-6 text-center">
         <motion.h2
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-3xl font-bold sm:text-4xl md:text-5xl"
+          className="text-3xl font-medium mb-4 md:mb-8 sm:text-4xl md:text-5xl"
         >
           Our Expertise
         </motion.h2>

@@ -4,8 +4,8 @@ import { Mail, MapPin, Phone, Globe } from "lucide-react";
 export function Footer() {
   return (
     <footer className="w-full border-t bg-background">
-      <div className=" mx-auto pt-8 md:pt-16">
-        <div className="container grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+      <div className=" mx-auto pt-16 md:pt-24 lg:pt-32">
+        <div className="container grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 pb-16 md:pb-20">
           {/* Company Info */}
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-foreground">

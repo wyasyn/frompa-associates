@@ -1,181 +1,142 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, CheckCircle } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
+  CardDescription,
 } from "@/components/ui/card";
+import ServiceHero from "@/components/accounting/hero";
+import { images } from "@/data/images";
 
 export default function AdvisoryPage() {
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <section className="w-full py-12 md:py-24 lg:py-32 ">
-        <div className="container px-4 md:px-6">
-          <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
-            <div className="space-y-4">
-              <div className="inline-block rounded-lg  px-3 py-1 text-sm ">
-                FROMPA & ASSOCIATES
-              </div>
-              <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                ADVISORY
-              </h1>
-              <p className=" md:text-xl">
-                As demands multiply, so do the opportunities. Growth does not
-                arrive alone. With it comes the pressure to make sure investors
-                are reassured, processes tightened, costs controlled, regulators
-                satisfied, and talent retained. All against a backdrop of
-                relentless digitalisation.
-              </p>
-              <p className=" md:text-xl font-medium">
-                What if we could help you to prepare now, for tomorrow?
-              </p>
-            </div>
-            <div className="flex justify-center">
-              <Image
-                src="/placeholder.svg?height=400&width=600"
-                alt="Advisory Services"
-                width={600}
-                height={400}
-                className="rounded-lg object-cover"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
+    <div className="flex flex-col">
+      {/* Title & Intro */}
+      <ServiceHero
+        title="Advisory Services"
+        description="Frompa & Associates helps you navigate complexity—from growth
+            planning and cost control to digital transformation and talent
+            management. Prepare today, succeed tomorrow."
+      />
 
-      {/* CFO Advisory Section */}
-      <section className="w-full py-12 md:py-24 lg:py-32">
-        <div className="container px-4 md:px-6">
-          <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
-            <div className="space-y-4">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
-                For Chief Financial Officers. And leaders who need a CHIEF
-                FINANCIAL OFFICER.
-              </h2>
-              <p>
-                Our CHIEF FINANCIAL OFFICER advisory service is where many
-                businesses first get to know Frompa & Associates.
-              </p>
-              <p>
-                Perhaps you're a CHIEF FINANCIAL OFFICER looking to bolster your
-                existing function. Maybe you need the skills of a CHIEF
-                FINANCIAL OFFICER but don't need full-time support – or you
-                could be looking to bring in expertise before you make a
-                permanent hire.
-              </p>
-              <p>
-                Whatever the reason, our CHIEF FINANCIAL OFFICER advisory team
-                will help you to strengthen your finance function, especially
-                valuable if you are considering fundraising or an IPO.
-              </p>
-              <p>
-                With Frompa & Associates, you know that your relationship is
-                always partner-led, built on a strong understanding of what you
-                need to achieve. All backed by the international team, services
-                and contacts you need to succeed.
-              </p>
-            </div>
-            <div className="space-y-4">
-              <Card>
-                <CardHeader>
-                  <CardTitle>
-                    Where will growth come from? Where will risks emerge?
-                  </CardTitle>
-                  <CardDescription>
-                    The more complex your global operations, the harder it can
-                    be to achieve efficiencies – and avoid missteps.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p>
-                    With Frompa & Associates on board, you have global experts
-                    on your side – powered by local knowledge and expertise.
-                  </p>
-                  <p className=" mt-4">
-                    For example, that could mean transforming your accounting
-                    function, giving you the key data you need to make decisions
-                    and spur growth. And yes, we offer co-located services as
-                    well as outsourcing.
-                  </p>
-                  <p className=" mt-4">
-                    It could mean looking at how you engage, develop and
-                    incentivise your people, bringing a growth focus to the way
-                    you approach human resources. Or it could be about
-                    understanding the strengths, weaknesses and opportunities
-                    across complex supply chains, then reengineering them to fit
-                    your commercial goals and investors' ambitions.
-                  </p>
-                  <p className=" mt-4 font-medium">
-                    Wherever the opportunities, we add the scale and expertise
-                    you need.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Services Section */}
-      <section className="w-full py-12 md:py-24 lg:py-32 ">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
-                Frompa & Associates shall help you with consulting
-              </h2>
-            </div>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 w-full max-w-5xl">
+      {/* Advisory Overview */}
+      <section className="py-12 md:py-40">
+        <div className="container mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h2 className="text-2xl font-semibold">
+              Strategic CFO & Leadership Support
+            </h2>
+            <p className="mt-4 text-pretty max-w-prose">
+              Whether you need fractional CFO expertise, project-based support,
+              or co-located advisory, our partner-led teams deliver tailored
+              solutions to strengthen your finance function.
+            </p>
+            <ul className="mt-4 md:mt-8 space-y-3">
               {[
-                "CHIEF FINANCIAL OFFICER advisory services",
-                "Human capital",
-                "Strategy consulting",
-                "Outsourcing and managed services",
-                "Supply chain and working capital consulting",
-                "Procurement",
-                "Bond issuance",
-                "IPO issuance",
-                "Trade Finance",
-              ].map((service, index) => (
-                <div
-                  key={index}
-                  className="flex items-start space-x-2 rounded-lg border  p-4 shadow-sm"
-                >
-                  <CheckCircle className="h-5 w-5  mt-0.5" />
-                  <span>{service}</span>
+                "Fractional & interim CFO services",
+                "Finance team augmentation",
+                "Fundraising and IPO readiness",
+                "Digitalisation & process optimisation",
+                "Risk management and controls",
+              ].map((item) => (
+                <li key={item} className="flex items-start">
+                  <CheckCircle className="h-6 w-6 text-primary mt-1" />
+                  <span className="ml-3">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="flex justify-center">
+            <Image
+              src={images.advisotyImage.src}
+              alt="Advisory Services"
+              width={images.advisotyImage.width}
+              height={images.advisotyImage.height}
+              priority
+              placeholder="blur"
+              blurDataURL={images.advisotyImage.blurDataURL}
+              className="rounded-lg object-cover shadow-lg border"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* In-Depth Card */}
+      <section className="py-12 md:py-40 bg-secondary">
+        <div className="container mx-auto px-4 md:px-6">
+          <Card className="bg-background/75 p-8">
+            <CardHeader>
+              <CardTitle>Empower Your Growth with Expert Guidance</CardTitle>
+              <CardDescription>
+                Our advisory goes beyond numbers. We partner with you to:
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="grid gap-6 sm:grid-cols-2">
+              {[
+                "Reengineer supply chains for efficiency",
+                "Design incentive plans to retain top talent",
+                "Structure bond and IPO issuances",
+                "Optimise working capital and procurement",
+                "Implement digital finance platforms",
+              ].map((point) => (
+                <div key={point} className="flex items-start">
+                  <CheckCircle className="h-5 w-5 text-primary mt-1" />
+                  <span className="ml-2 text-sm">{point}</span>
                 </div>
               ))}
-            </div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* Services Grid */}
+      <section className="py-12 md:py-40">
+        <div className="container mx-auto px-4 md:px-6 text-center">
+          <h2 className="text-2xl pb-10 font-semibold">
+            Our Advisory Capabilities
+          </h2>
+          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              "CFO Advisory",
+              "Human Capital Consulting",
+              "Strategy & Growth Planning",
+              "Managed & Outsourced Services",
+              "Supply Chain & Capital Optimization",
+              "Bond & IPO Issuance",
+              "Procurement Excellence",
+              "Digital Transformation",
+              "Trade Finance Solutions",
+            ].map((service) => (
+              <Card key={service} className="p-4">
+                <CardTitle className="text-lg text-muted-foreground">
+                  {service}
+                </CardTitle>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="w-full py-12 md:py-24 lg:py-32 border-t">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
-                Ready to strengthen your finance function?
-              </h2>
-              <p className="mx-auto max-w-[700px]  md:text-xl">
-                Contact Frompa & Associates today to learn how our advisory
-                services can benefit your organization.
-              </p>
-            </div>
-            <div className="flex flex-col gap-2 min-[400px]:flex-row">
-              <Link href="/contact">
-                <Button>
-                  Contact Us <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-            </div>
+      {/* Call To Action */}
+      <section className="py-16 md:py-40 bg-secondary">
+        <div className="container mx-auto px-4 md:px-6 text-center">
+          <h2 className="text-2xl font-semibold">
+            Ready to strengthen your finance function?
+          </h2>
+          <p className="mt-3 max-w-2xl mx-auto text-pretty">
+            Contact Frompa & Associates today to discover how our advisory
+            services can drive your success.
+          </p>
+          <div className="mt-6">
+            <Link href="/contact">
+              <Button size="lg">
+                Contact Us <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

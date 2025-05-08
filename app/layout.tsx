@@ -21,9 +21,26 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Frompa & Associates - Accounting and Auditing Firm",
+  title: "Frompa & Associates | Accounting, Audit, Advisory & Tax in Uganda",
   description:
-    "Your trusted partner for accounting, auditing, and financial advisory services.",
+    "Frompa & Associates – Certified Public Accountants in Mukono, Uganda. We offer partner-led accounting, audit & assurance, corporate tax, trade finance, CFO advisory and ESG reporting services.",
+  keywords:
+    "Uganda accountants, audit services Uganda, corporate tax Uganda, trade finance, CFO advisory, ESG reporting, financial advisory",
+  authors: [
+    {
+      name: "Frompa & Associates",
+    },
+  ],
+  robots: "index, follow",
+  openGraph: {
+    type: "website",
+    url: "https://www.frompaandassociates.com/",
+    title: "Frompa & Associates | Accounting, Audit, Advisory & Tax in Uganda",
+    description:
+      "Partner-led accounting, audit & assurance, corporate tax, trade finance, CFO advisory and ESG reporting services – based in Mukono, Uganda.",
+    siteName: "Frompa and Associates",
+    images: [{ url: "/opengraph-image.jpg" }],
+  },
 };
 
 export default function RootLayout({
