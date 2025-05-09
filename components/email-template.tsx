@@ -9,9 +9,6 @@ type ContactFormValues = {
   message: string;
 };
 
-// Static assets and company details
-const BANNER_URL =
-  "https://images.unsplash.com/photo-1579548122080-c35fd6820ecb?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 const COMPANY_NAME = "FROMPA & ASSOCIATES";
 const COMPANY_WEBSITE = "https://frampoandadvocates.com";
 const FOOTER_TEXT = `© ${new Date().getFullYear()} FROMPA & ASSOCIATES. All rights reserved.`;
@@ -38,37 +35,29 @@ export const EmailTemplate: React.FC<ContactFormValues> = ({
         overflow: "hidden",
       }}
     >
-      {/* Banner */}
-      <header style={{ width: "100%" }}>
-        <img
-          src={BANNER_URL}
-          alt="Banner"
-          style={{ width: "100%", display: "block" }}
-        />
-      </header>
-
       {/* Content */}
-      <main style={{ padding: 20 }}>
-        <h1 style={{ margin: "0 0 10px", fontSize: 24 }}>
-          Message from {firstName} {lastName},
+      <main style={{ padding: 30 }}>
+        <h1 style={{ margin: "0 0 15px", fontSize: 24 }}>
+          You have received a new message from {firstName} {lastName}
         </h1>
-        <p style={{ margin: "0 0 15px", fontSize: 16 }}>
-          The user has contact about {capitalizedService} services.
+        <p style={{ margin: "0 0 20px", fontSize: 16 }}>
+          A client has reached out regarding{" "}
+          <strong>{capitalizedService}</strong> services.
         </p>
 
         <div
-          style={{ backgroundColor: "#f9f9f9", padding: 15, borderRadius: 4 }}
+          style={{ backgroundColor: "#f9f9f9", padding: 20, borderRadius: 4 }}
         >
-          <p style={{ margin: "5px 0" }}>
+          <p style={{ margin: "8px 0" }}>
             <strong>Email:</strong> {email}
           </p>
-          <p style={{ margin: "5px 0" }}>
+          <p style={{ margin: "8px 0" }}>
             <strong>Phone:</strong> {phone}
           </p>
-          <p style={{ margin: "5px 0" }}>
+          <p style={{ margin: "8px 0" }}>
             <strong>Service:</strong> {capitalizedService}
           </p>
-          <p style={{ margin: "5px 0" }}>
+          <p style={{ margin: "8px 0" }}>
             <strong>Message:</strong>
             <br />
             {message}
