@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     description:
       "Partner-led accounting, audit & assurance, corporate tax, trade finance, CFO advisory and ESG reporting services – based in Mukono, Uganda.",
     siteName: "Frompa and Associates",
-    images: [{ url: "/opengraph-image.jpg" }],
+    images: [{ url: "/opengraph-image.webp" }],
   },
 };
 

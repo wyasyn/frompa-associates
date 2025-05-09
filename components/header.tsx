@@ -56,6 +56,15 @@ export function Header() {
                 >
                   Home
                 </Link>
+                <Link
+                  href="/about-us"
+                  className={cn(
+                    "text-lg font-medium hover:underline underline-offset-4",
+                    pathname === "/about-us" && "border-b border-b-primary"
+                  )}
+                >
+                  About Us
+                </Link>
                 <div className="space-y-3">
                   <span className="text-lg font-medium">Services</span>
                   <div className="flex flex-col gap-2 pl-4">
@@ -115,6 +124,17 @@ export function Header() {
             >
               Home
             </Link>
+
+            <Link
+              href="/about-us"
+              className={cn(
+                "text-sm font-medium hover:underline underline-offset-4",
+                pathname === "/about-us" && "border-b border-b-primary"
+              )}
+            >
+              About Us
+            </Link>
+
             <div className="relative group">
               <div
                 tabIndex={0}

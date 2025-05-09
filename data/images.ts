@@ -1,12 +1,14 @@
-import hero1 from "@/assets/hero-1.jpg";
-import hero2 from "@/assets/hero-2.jpg";
-import hero3 from "@/assets/hero-3.jpg";
-import hero4 from "@/assets/hero-4.jpg";
-import hero5 from "@/assets/hero-5.jpg";
-import taxImage from "@/assets/tax.jpg";
-import accountingImage from "@/assets/accounting.jpg";
-import advisotyImage from "@/assets/advisory.jpg";
-import auditImage from "@/assets/audit.jpg";
+import hero1 from "@/assets/hero-1.webp";
+import hero2 from "@/assets/hero-2.webp";
+import hero3 from "@/assets/hero-3.webp";
+import hero4 from "@/assets/hero-4.webp";
+import hero5 from "@/assets/hero-5.webp";
+import taxImage from "@/assets/tax.webp";
+import accountingImage from "@/assets/accounting.webp";
+import advisotyImage from "@/assets/advisory.webp";
+import auditImage from "@/assets/audit.webp";
+import firmOffice from "@/assets/firm-ofice.webp";
+import patnerMeeting from "@/assets/patner-meeting.webp";
 
 export const images = {
   hero1,
@@ -18,6 +20,8 @@ export const images = {
   accountingImage,
   advisotyImage,
   auditImage,
+  firmOffice,
+  patnerMeeting,
 };
 
 export const imageList = [hero1, hero2, hero3, hero4, hero5];

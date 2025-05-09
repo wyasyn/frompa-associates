@@ -21,7 +21,7 @@ export function CtaSection() {
         <div
           className="
             absolute inset-0 
-            bg-[url('/cta-bg.jpg')] 
+            bg-[url('/cta-bg.webp')] 
             bg-cover 
             bg-center
           "
