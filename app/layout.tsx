@@ -2,6 +2,7 @@ import type React from "react";
 import type { Metadata } from "next";
 import { Outfit, Playfair_Display, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
 
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
@@ -29,7 +30,12 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Frompa & Associates | Accounting, Audit, Advisory & Tax in Uganda",
+  title: {
+    template:
+      "%s | Frompa & Associates | Accounting, Audit, Advisory & Tax in Uganda",
+    default:
+      "Frompa & Associates | Accounting, Audit, Advisory & Tax in Uganda",
+  },
   description:
     "Frompa & Associates – Certified Public Accountants in Mukono, Uganda. We offer partner-led accounting, audit & assurance, corporate tax, trade finance, CFO advisory and ESG reporting services.",
   keywords:
@@ -70,6 +76,7 @@ export default function RootLayout({
           <div className="flex flex-col min-h-screen">
             <Header />
             <main className="flex-1">{children}</main>
+            <Toaster position="top-right" richColors />
             <Footer />
           </div>
         </ThemeProvider>

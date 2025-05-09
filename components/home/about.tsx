@@ -32,7 +32,7 @@ export function About() {
           </div>
 
           {/* Right: Highlights */}
-          <div className="flex flex-col justify-center space-y-6">
+          <div className="flex flex-col justify-center space-y-6 bg-gradient-to-br from-background via-background to-secondary py-8 md:py-16 px-8 md:px-12 rounded-lg">
             <div className="flex items-start space-x-4">
               <CheckCircle className="h-8 w-8 text-primary" />
               <div>

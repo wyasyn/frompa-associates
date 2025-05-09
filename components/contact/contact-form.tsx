@@ -22,7 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { SendHorizontal } from "lucide-react";
+import { Loader2, SendHorizontal } from "lucide-react";
 
 // Zod schema for validation
 const contactSchema = z.object({
@@ -42,11 +42,11 @@ const contactSchema = z.object({
 type ContactFormValues = z.infer<typeof contactSchema>;
 
 interface ContactFormProps {
-  onSubmit: (data: ContactFormValues) => void;
+  onSubmit: (data: ContactFormValues) => boolean | Promise<boolean>;
 }
 
 export function ContactForm({ onSubmit }: ContactFormProps) {
-  const [isSuccess, setIsSuccess] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
@@ -59,28 +59,20 @@ export function ContactForm({ onSubmit }: ContactFormProps) {
     },
   });
 
-  // Clear success message after 5 seconds
-  React.useEffect(() => {
-    let timer: NodeJS.Timeout;
-    if (isSuccess) {
-      timer = setTimeout(() => setIsSuccess(false), 5000);
+  const handleSubmit: SubmitHandler<ContactFormValues> = async (values) => {
+    try {
+      setIsLoading(true);
+      await onSubmit(values);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      form.reset();
+      setIsLoading(false);
     }
-    return () => clearTimeout(timer);
-  }, [isSuccess]);
-
-  const handleSubmit: SubmitHandler<ContactFormValues> = (values) => {
-    onSubmit(values);
-    form.reset();
-    setIsSuccess(true);
   };
 
   return (
     <Form {...form}>
-      {isSuccess && (
-        <div className="mb-4 rounded-md bg-green-100 p-4 text-green-800">
-          Thank you! Your message has been sent successfully.
-        </div>
-      )}
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
         <div className="grid gap-4 sm:grid-cols-2">
           <FormField
@@ -178,8 +170,17 @@ export function ContactForm({ onSubmit }: ContactFormProps) {
           )}
         />
 
-        <Button type="submit" className="w-full">
-          Send Message <SendHorizontal className="ml-3 h-4 w-4" />
+        <Button type="submit" className="w-full" disabled={isLoading}>
+          {isLoading ? (
+            <>
+              <Loader2 className="mr-3 h-4 w-4 animate-spin" /> Sending...
+            </>
+          ) : (
+            <>
+              {" "}
+              Send Message <SendHorizontal className="ml-3 h-4 w-4" />{" "}
+            </>
+          )}
         </Button>
       </form>
     </Form>

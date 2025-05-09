@@ -9,7 +9,7 @@ import advisotyImage from "@/assets/advisory.webp";
 import auditImage from "@/assets/audit.webp";
 import firmOffice from "@/assets/firm-ofice.webp";
 import patnerMeeting from "@/assets/patner-meeting.webp";
-
+import notFoundImage from "@/assets/404.webp";
 export const images = {
   hero1,
   hero2,
@@ -22,6 +22,7 @@ export const images = {
   auditImage,
   firmOffice,
   patnerMeeting,
+  notFoundImage,
 };
 
 export const imageList = [hero1, hero2, hero3, hero4, hero5];

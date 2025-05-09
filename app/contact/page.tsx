@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
+import { toast } from "sonner";
 import {
   Card,
   CardContent,
@@ -12,7 +13,48 @@ import {
 import { ContactForm } from "@/components/contact/contact-form";
 import ServiceHero from "@/components/accounting/hero";
 
+export type ContactFormValues = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  service: "advisory" | "accounting" | "audit" | "tax" | "trade";
+  message: string;
+};
+
 export default function ContactPage() {
+  const sendEmail = async (values: ContactFormValues) => {
+    try {
+      const response = await fetch("/api/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      const payload = await response.json();
+
+      if (!response.ok) {
+        // payload might include an error message
+        const errMsg =
+          typeof payload === "object" && "error" in payload
+            ? (payload as any).error
+            : response.statusText;
+        toast.error(`Failed to send email: ${errMsg}`);
+        return false;
+      }
+
+      toast.success("Your message has been sent! 🎉");
+      return true;
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error ? err.message : "Something went wrong.";
+      toast.error(message);
+      console.error("Error sending email:", err);
+      return false;
+    }
+  };
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
@@ -33,11 +75,7 @@ export default function ContactPage() {
                 Fill out the form below, and we’ll get back to you within one
                 business day.
               </p>
-              <ContactForm
-                onSubmit={(data) => {
-                  console.log(data);
-                }}
-              />
+              <ContactForm onSubmit={sendEmail} />
             </div>
 
             {/* Contact Details */}
