@@ -7,6 +7,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { images } from "@/data/images";
 import ServiceHero from "@/components/accounting/hero";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Audit and Assurance service",
+};
 
 // Animation variants
 const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } };

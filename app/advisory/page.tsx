@@ -11,6 +11,11 @@ import {
 } from "@/components/ui/card";
 import ServiceHero from "@/components/accounting/hero";
 import { images } from "@/data/images";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Advisory Service",
+};
 
 export default function AdvisoryPage() {
   return (

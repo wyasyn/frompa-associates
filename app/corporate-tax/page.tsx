@@ -6,6 +6,11 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import ServiceHero from "@/components/accounting/hero";
 import { images } from "@/data/images";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Corporate Tax Service",
+};
 
 // Animation variants
 const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } };

@@ -12,6 +12,11 @@ import {
 } from "@/components/ui/card";
 import { ContactForm } from "@/components/contact/contact-form";
 import ServiceHero from "@/components/accounting/hero";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact Us",
+};
 
 export type ContactFormValues = {
   firstName: string;

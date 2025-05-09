@@ -5,6 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { images } from "@/data/images";
 import ServiceHero from "@/components/accounting/hero";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Accounting Service",
+};
 
 export default function AccountingPage() {
   return (
