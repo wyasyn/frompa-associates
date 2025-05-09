@@ -1,22 +1,30 @@
 import type React from "react";
 import type { Metadata } from "next";
-import { Outfit, Playfair_Display } from "next/font/google";
+import { Outfit, Playfair_Display, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { ThemeProvider } from "@/components/theme-provider";
 
-const inter = Outfit({
+const outfit = Outfit({
+  weight: ["400", "500", "600", "700", "800"],
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const jetbrains = JetBrains_Mono({
+  weight: ["400", "500", "600", "700", "800"],
+  subsets: ["latin"],
+  variable: "--font-mono",
   display: "swap",
 });
 
 const playfair = Playfair_Display({
   weight: ["400", "500", "600", "700", "800"],
   subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-serif",
   display: "swap",
 });
 
@@ -50,10 +58,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
-      <body className={`${inter.variable} ${playfair.variable}`}>
+      <body
+        className={`${outfit.variable} ${playfair.variable} ${jetbrains.variable}`}
+      >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >

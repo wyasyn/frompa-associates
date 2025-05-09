@@ -22,8 +22,9 @@ const config: Config = {
         spacing: "margin, padding",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "sans-serif"],
-        serif: ["var(--font-playfair)", "serif"],
+        sans: ["var(--font-sans)", "sans-serif"],
+        serif: ["var(--font-serif)", "serif"],
+        mono: ["var(--font-mono)", "mono"],
       },
       colors: {
         background: "hsl(var(--background))",

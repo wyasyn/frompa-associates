@@ -3,10 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Mail } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 import { Button } from "../ui/button";
-import { isPageStatic } from "next/dist/build/utils";
-import { images } from "@/data/images";
 import ImageSlider from "./ImageSlider";
 
 export default function Cta() {
@@ -21,7 +18,7 @@ export default function Cta() {
             transition={{ duration: 0.8 }}
             className="space-y-6"
           >
-            <div className="inline-block rounded-full text-muted-foreground px-3 py-1 text-sm font-medium">
+            <div className="inline-block rounded-full text-muted-foreground px-3 py-1 font-mono text-sm font-medium">
               Certified Public Accountants – Uganda
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-tight">

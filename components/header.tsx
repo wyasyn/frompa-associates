@@ -22,8 +22,7 @@ export function Header() {
   const headerClasses = clsx(
     "sticky top-0 w-full z-50 transition-all duration-300",
     {
-      "bg-primary/75 text-zinc-200 backdrop-blur-sm shadow-md":
-        scrollDirection !== "top",
+      "bg-background/75 backdrop-blur-sm shadow-md": scrollDirection !== "top",
       "bg-transparent": scrollDirection === "top",
       "-translate-y-full": scrollDirection === "down",
       "translate-y-0": scrollDirection !== "down",
