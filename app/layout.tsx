@@ -1,6 +1,7 @@
 import type React from "react";
 import type { Metadata } from "next";
 import { Outfit, Playfair_Display, JetBrains_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -78,6 +79,7 @@ export default function RootLayout({
             <main className="flex-1">{children}</main>
             <Toaster position="top-right" richColors />
             <Footer />
+            <Analytics />
           </div>
         </ThemeProvider>
       </body>
