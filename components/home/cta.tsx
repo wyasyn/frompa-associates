@@ -8,7 +8,7 @@ import ImageSlider from "./ImageSlider";
 
 export default function Cta() {
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32">
+    <section className="w-full py-12 md:py-24 lg:py-24">
       <div className="container px-4 md:px-6">
         <div className="grid gap-10 lg:grid-cols-2 items-center">
           {/* Text Content */}
@@ -21,7 +21,7 @@ export default function Cta() {
             <div className="inline-block rounded-full text-muted-foreground px-3 py-1 font-mono text-sm font-medium">
               Certified Public Accountants – Uganda
             </div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-medium tracking-tight leading-tight">
               Financial Clarity. <br />
               Strategic Growth.
             </h1>

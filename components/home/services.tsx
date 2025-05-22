@@ -58,10 +58,7 @@ const SERVICES = [
 
 export default function ServicesSection() {
   return (
-    <section
-      id="services"
-      className="w-full py-12 md:py-24 lg:py-40 bg-secondary "
-    >
+    <section id="services" className="w-full py-12 md:py-24 bg-secondary ">
       <div className="container px-4 md:px-6 text-center">
         <motion.h2
           initial={{ opacity: 0, y: -10 }}

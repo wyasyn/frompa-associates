@@ -10,21 +10,18 @@ import { Footer } from "@/components/footer";
 import { ThemeProvider } from "@/components/theme-provider";
 
 const outfit = Outfit({
-  weight: ["400", "500", "600", "700", "800"],
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
 });
 
 const jetbrains = JetBrains_Mono({
-  weight: ["400", "500", "600", "700", "800"],
   subsets: ["latin"],
   variable: "--font-mono",
   display: "swap",
 });
 
 const playfair = Playfair_Display({
-  weight: ["400", "500", "600", "700", "800"],
   subsets: ["latin"],
   variable: "--font-serif",
   display: "swap",
@@ -70,7 +67,7 @@ export default function RootLayout({
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >

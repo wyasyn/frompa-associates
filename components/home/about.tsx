@@ -4,11 +4,11 @@ import Image from "next/image";
 
 export function About() {
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32">
+    <section className="w-full py-12 md:py-24">
       <div className="container px-4 md:px-6">
         {/* Heading & Intro */}
         <div className="mx-auto max-w-2xl text-center space-y-4">
-          <h2 className="text-3xl font-bold tracking-tight mb-4 md:mb-8 sm:text-4xl md:text-5xl">
+          <h2 className="text-3xl font-medium tracking-tight mb-4 md:mb-8 sm:text-4xl md:text-5xl">
             Who We Are
           </h2>
           <p className="max-w-prose mx-auto text-pretty">

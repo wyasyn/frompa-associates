@@ -39,7 +39,7 @@ export function CtaSection() {
 
       {/* Content */}
       <div className="relative z-10 container px-4 md:px-6 text-center">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-white">
           Future‑Ready Financial Solutions
         </h2>
         <p className="mt-4 mx-auto max-w-2xl text-lg md:text-xl text-gray-200">
