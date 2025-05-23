@@ -32,17 +32,19 @@ export default function Cta() {
             </p>
             <div className="flex flex-col gap-2 sm:flex-row">
               <Link href="#services">
-                <Button size="lg">
-                  Our Services <ArrowRight className="ml-2 h-4 w-4" />
+                <Button size="lg" className="group">
+                  Our Services{" "}
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:ml-4 duration-300" />
                 </Button>
               </Link>
               <Link href="/contact">
                 <Button
                   size="lg"
                   variant="outline"
-                  className="text-muted-foreground"
+                  className="text-muted-foreground group"
                 >
-                  Contact Us <Mail className="ml-2 h-4 w-4" />
+                  Contact Us{" "}
+                  <Mail className="ml-2 h-4 w-4 group-hover:ml-4 duration-300" />
                 </Button>
               </Link>
             </div>
