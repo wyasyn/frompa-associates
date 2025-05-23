@@ -34,7 +34,7 @@ export default function Cta() {
               <Link href="#services">
                 <Button size="lg" className="group">
                   Our Services{" "}
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:ml-4 duration-300" />
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-3 duration-300" />
                 </Button>
               </Link>
               <Link href="/contact">
@@ -44,7 +44,7 @@ export default function Cta() {
                   className="text-muted-foreground group"
                 >
                   Contact Us{" "}
-                  <Mail className="ml-2 h-4 w-4 group-hover:ml-4 duration-300" />
+                  <Mail className="ml-2 h-4 w-4 group-hover:translate-x-3 duration-300" />
                 </Button>
               </Link>
             </div>
