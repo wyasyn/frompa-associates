@@ -356,7 +356,7 @@ export default function AboutUsPage() {
                 </Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <Link href="/services">Explore Our Services</Link>
+                <Link href="/#services">Explore Our Services</Link>
               </Button>
             </div>
           </motion.div>
