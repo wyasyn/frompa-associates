@@ -122,7 +122,7 @@ export function About() {
                 Discover our full story
               </span>
             </div>
-            <Link href="/about" className="group">
+            <Link href="/about-us" className="group">
               <Button
                 variant="default"
                 size="lg"
