@@ -36,12 +36,12 @@ const services = [
   { name: "Tax Advisory", href: "/tax-advisory" },
   { name: "Accounting Services", href: "/accounting" },
   { name: "Human Capital", href: "/human-capital" },
-  { name: "Corporate Governance", href: "/corporate-governance" },
+  { name: "Corporate Tax", href: "/corporate-tax" },
   { name: "IT Consulting", href: "/it-consulting" },
 ];
 
 const quickLinks = [
-  { name: "About Us", href: "/about" },
+  { name: "About Us", href: "/about-us" },
   { name: "Our Services", href: "/#services" },
   { name: "Client Portal", href: "/portal" },
   { name: "Careers", href: "/careers" },
