@@ -4,53 +4,54 @@ import { motion } from "framer-motion";
 import {
   LightbulbIcon,
   CalculatorIcon,
-  CheckCircleIcon,
-  BarChartIcon,
+  ShieldCheckIcon,
+  BarChart2Icon,
   GlobeIcon,
   LeafIcon,
 } from "lucide-react";
 import { ServiceCard } from "./service-card";
+import Link from "next/link";
 
 const SERVICES = [
   {
-    title: "Advisory",
+    title: "Strategic Advisory",
     description:
-      "Strategic CFO guidance, financial modelling and growth roadmaps that align with your vision.",
+      "CFO-level guidance, financial modeling, and tailored strategies to drive growth and resilience.",
     link: "/advisory",
     Icon: LightbulbIcon,
   },
   {
-    title: "Accounting",
+    title: "Accounting & Reporting",
     description:
-      "Accurate bookkeeping, real‑time reporting and seamless ERP integrations.",
+      "Real-time bookkeeping, financial reporting, and ERP integrations designed for operational clarity.",
     link: "/accounting",
     Icon: CalculatorIcon,
   },
   {
-    title: "Audit & Assurance",
+    title: "Audit & Risk Assurance",
     description:
-      "Rigorous audits to validate your financials and strengthen stakeholder confidence.",
+      "Independent, partner-led audits that enhance financial credibility and stakeholder trust.",
     link: "/audit-and-assurance",
-    Icon: CheckCircleIcon,
+    Icon: ShieldCheckIcon,
   },
   {
-    title: "Corporate Tax",
+    title: "Tax Strategy & Compliance",
     description:
-      "Holistic tax planning, compliance and structuring for optimal liability management.",
+      "Optimized tax planning and compliance services to reduce risk and improve cash flow.",
     link: "/corporate-tax",
-    Icon: BarChartIcon,
+    Icon: BarChart2Icon,
   },
   {
-    title: "Trade Finance",
+    title: "Trade Finance Advisory",
     description:
-      "Letters of Credit, Guarantees and bespoke solutions to fuel your cross‑border trade.",
+      "Letters of Credit, bank guarantees, and structured trade solutions to power your cross-border ambitions.",
     link: "/trade-finance",
     Icon: GlobeIcon,
   },
   {
-    title: "ESG Reporting",
+    title: "ESG Strategy & Reporting",
     description:
-      "Robust ESG frameworks and disclosures to meet investor and regulatory standards.",
+      "Robust ESG frameworks and transparent disclosures aligned with investor and regulatory standards.",
     link: "/audit-and-assurance#esg",
     Icon: LeafIcon,
   },
@@ -58,7 +59,7 @@ const SERVICES = [
 
 export default function ServicesSection() {
   return (
-    <section id="services" className="w-full py-12 md:py-24 bg-secondary ">
+    <section id="services" className="w-full py-12 md:py-24 bg-secondary">
       <div className="container px-4 md:px-6 text-center">
         <motion.h2
           initial={{ opacity: 0, y: -10 }}
@@ -72,10 +73,10 @@ export default function ServicesSection() {
           initial={{ opacity: 0, y: -5 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.6 }}
-          className="mx-auto mt-4 max-w-[55ch]"
+          className="mx-auto mt-4 max-w-[55ch] text-muted-foreground"
         >
-          Delivering clarity and strategic insights across every facet of your
-          financial journey.
+          We provide strategic clarity and financial confidence across every
+          stage of your organization’s journey.
         </motion.p>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -86,11 +87,22 @@ export default function ServicesSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 * i, duration: 0.6 }}
+              className="transition-transform hover:-translate-y-1 duration-300"
             >
               <ServiceCard {...svc} />
             </motion.div>
           ))}
         </div>
+
+        <p className="mt-12 text-sm text-muted-foreground">
+          Need something custom?{" "}
+          <Link
+            href="/contact"
+            className="text-primary underline hover:text-primary/80"
+          >
+            Let’s talk solutions.
+          </Link>
+        </p>
       </div>
     </section>
   );

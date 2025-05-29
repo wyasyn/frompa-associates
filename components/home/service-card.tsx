@@ -27,14 +27,17 @@ export function ServiceCard({
   Icon,
 }: ServiceCardProps) {
   return (
-    <motion.div
+    <motion.article
       whileHover={{ scale: 1.03 }}
       transition={{ duration: 0.3 }}
       className="group"
     >
-      <Card className="h-full flex flex-col bg-background/30">
+      <Card className="h-full flex flex-col bg-background/30 transition-shadow hover:shadow-md rounded-xl">
         <CardHeader className="flex-col items-center text-center pb-0">
-          <Icon className="h-12 w-12 text-primary mb-3 transition-colors group-hover:text-accent" />
+          <Icon
+            className="h-12 w-12 text-primary mb-3 transition-colors group-hover:text-accent"
+            aria-hidden="true"
+          />
           <CardTitle className="text-lg font-semibold">{title}</CardTitle>
           <CardDescription className="text-sm text-muted-foreground max-w-[40ch]">
             {description}
@@ -44,17 +47,16 @@ export function ServiceCard({
         <CardContent className="flex-grow" />
 
         <CardFooter className="pt-0">
-          <Link href={link} passHref className="mx-auto">
-            <Button
-              variant="outline"
-              className="w-full justify-center group-hover:bg-primary group-hover:text-white transition"
-              aria-label={`Learn more about ${title}`}
-            >
-              Learn More <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+          <Link href={link} passHref legacyBehavior>
+            <a className="w-full" aria-label={`Learn more about ${title}`}>
+              <Button variant="outline" className="w-full justify-center">
+                Learn More
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </a>
           </Link>
         </CardFooter>
       </Card>
-    </motion.div>
+    </motion.article>
   );
 }

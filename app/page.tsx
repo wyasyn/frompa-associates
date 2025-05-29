@@ -2,12 +2,17 @@ import { Hero } from "@/components/home/hero";
 import { About } from "@/components/home/about";
 import ServicesSection from "@/components/home/services";
 import { CtaSection } from "@/components/home/call-to-action";
+import ClientLogos from "@/components/home/ClientLogos";
+import { TestimonialStrip } from "@/components/home/testimonials";
+import Cta from "@/components/home/cta";
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <Hero />
+      <Cta />
+
+      <ClientLogos />
 
       {/* About Section */}
       <About />
@@ -17,6 +22,8 @@ export default function Home() {
 
       {/* CTA Section */}
       <CtaSection />
+
+      <TestimonialStrip />
 
       <script
         type="application/ld+json"

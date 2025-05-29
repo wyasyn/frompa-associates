@@ -12,6 +12,7 @@ import clsx from "clsx";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import path from "path";
+import Logo from "./logo";
 
 export function Header() {
   const isMobile = useMobile();
@@ -32,11 +33,7 @@ export function Header() {
   return (
     <header className={headerClasses}>
       <div className="container flex h-16 items-center px-4 md:px-6">
-        <Link href="/" className="flex items-center gap-2  ">
-          <span className="text-xl font-bold font-serif text-foreground">
-            FROMPA & ASSOCIATES
-          </span>
-        </Link>
+        <Logo />
         {isMobile ? (
           <Sheet>
             <SheetTrigger asChild>
