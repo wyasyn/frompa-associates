@@ -11,7 +11,6 @@ import { useScrollDirection } from "@/hooks/use-scroll-direction";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import path from "path";
 import Logo from "./logo";
 
 export function Header() {
