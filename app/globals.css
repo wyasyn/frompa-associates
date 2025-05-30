@@ -160,6 +160,12 @@
     --shadow-2xl: 0px 24px 48px -12px hsl(0 0% 0% / 0.5);
   }
 
+  @layer utilities {
+    .container {
+      @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    }
+  }
+
   /* Additional utility classes for FROMPA branding */
   .frompa-primary {
     color: hsl(var(--primary));

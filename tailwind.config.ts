@@ -9,13 +9,6 @@ const config: Config = {
     "*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    container: {
-      center: true,
-      padding: "0.5rem",
-      screens: {
-        "2xl": "1400px",
-      },
-    },
     extend: {
       transitionProperty: {
         height: "height",

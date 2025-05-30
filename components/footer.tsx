@@ -2,17 +2,10 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import {
-  Mail,
-  MapPin,
-  Phone,
-  ArrowRight,
-  LinkedinIcon,
-  TwitterIcon,
-  FacebookIcon,
-  ExternalLink,
-} from "lucide-react";
+import { Mail, MapPin, Phone, ArrowRight, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { BsLinkedin, BsTwitterX } from "react-icons/bs";
+import { FaFacebookF } from "react-icons/fa";
 import Logo from "./logo";
 
 const fadeInUp = {
@@ -148,24 +141,30 @@ export function Footer() {
 
               {/* Social Links */}
               <div className="flex space-x-4">
-                <a
-                  href="#"
+                <Link
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://www.linkedin.com/company/frompa-associates-certified-public-accountants/"
                   className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 hover:bg-primary hover:text-primary-foreground text-primary transition-all duration-300 group"
                 >
-                  <LinkedinIcon className="h-5 w-5 group-hover:scale-110 transition-transform" />
-                </a>
-                <a
-                  href="#"
+                  <BsLinkedin className="h-5 w-5 group-hover:scale-110 transition-transform" />
+                </Link>
+                <Link
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://x.com/FROMPA_CPA?t=xOJ_0e58JoBA6U8lsEef6A&s=09"
                   className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 hover:bg-primary hover:text-primary-foreground text-primary transition-all duration-300 group"
                 >
-                  <TwitterIcon className="h-5 w-5 group-hover:scale-110 transition-transform" />
-                </a>
-                <a
-                  href="#"
+                  <BsTwitterX className="h-5 w-5 group-hover:scale-110 transition-transform" />
+                </Link>
+                <Link
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://www.facebook.com/share/1C8ukZrYwH/"
                   className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 hover:bg-primary hover:text-primary-foreground text-primary transition-all duration-300 group"
                 >
-                  <FacebookIcon className="h-5 w-5 group-hover:scale-110 transition-transform" />
-                </a>
+                  <FaFacebookF className="h-5 w-5 group-hover:scale-110 transition-transform" />
+                </Link>
               </div>
             </motion.div>
 

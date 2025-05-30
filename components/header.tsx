@@ -119,7 +119,7 @@ export function Header() {
 
   return (
     <header className={headerClasses}>
-      <div className="container flex h-16 items-center px-4 md:px-6">
+      <div className="container flex h-16 items-center">
         {isMobile ? (
           <>
             {/* Mobile Layout: Menu - Logo - Toggle */}
