@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { z } from "zod";
 import {
   Mail,
   MapPin,
@@ -15,50 +16,59 @@ import {
   Shield,
   TrendingUp,
   Users,
+  AlertCircle,
+  X,
 } from "lucide-react";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
+import { Label } from "../ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import InputField from "./input-field";
+
+// Zod schema for form validation
+const contactFormSchema = z.object({
+  firstName: z.string().min(1, "First name is required").trim(),
+  lastName: z.string().min(1, "Last name is required").trim(),
+  email: z.string().email("Invalid email address"),
+  phone: z
+    .string()
+    .min(1, "Phone number is required")
+    .regex(/^[+]?\d{7,15}$/, "Invalid phone number format"),
+  service: z.enum(
+    ["audit", "tax", "accounting", "governance", "trade", "advisory", "hr"],
+    {
+      errorMap: () => ({ message: "Please select a service" }),
+    }
+  ),
+  message: z.string().min(1, "Message cannot be empty").trim(),
+});
+
+export type ContactFormValues = z.infer<typeof contactFormSchema>;
 
 const ModernContactPage = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ContactFormValues>({
     firstName: "",
     lastName: "",
     email: "",
     phone: "",
-    service: "",
+    service: "" as any,
     message: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof ContactFormValues, string>>
+  >({});
+  const [submitError, setSubmitError] = useState<string>("");
 
   useEffect(() => {
-    interface MousePosition {
-      x: number;
-      y: number;
-    }
-
-    interface FormData {
-      firstName: string;
-      lastName: string;
-      email: string;
-      phone: string;
-      service: string;
-      message: string;
-    }
-
-    interface Service {
-      value: string;
-      label: string;
-      icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
-      color: string;
-    }
-
-    interface ContactCard {
-      icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
-      title: string;
-      content: React.ReactNode;
-      gradient: string;
-    }
-
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
@@ -66,39 +76,111 @@ const ModernContactPage = () => {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  interface InputChangeEvent
-    extends React.ChangeEvent<
+  const handleInputChange = (
+    e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    > {}
+    >
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name as keyof ContactFormValues]: value,
+    }));
 
-  const handleInputChange = (e: InputChangeEvent) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    // Clear error for this field when user starts typing
+    if (errors[name as keyof ContactFormValues]) {
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
+  };
+
+  const validateForm = (): boolean => {
+    try {
+      contactFormSchema.parse(formData);
+      setErrors({});
+      return true;
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const fieldErrors: Partial<Record<keyof ContactFormValues, string>> =
+          {};
+        error.errors.forEach((err) => {
+          if (err.path.length > 0) {
+            const field = err.path[0] as keyof ContactFormValues;
+            fieldErrors[field] = err.message;
+          }
+        });
+        setErrors(fieldErrors);
+      }
+      return false;
+    }
   };
 
   const handleSubmit = async () => {
-    setIsLoading(true);
+    // Validate form before submission
+    if (!validateForm()) {
+      return;
+    }
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    try {
+      setIsLoading(true);
+      setSubmitError("");
 
-    setIsLoading(false);
-    setIsSubmitted(true);
+      // Clean phone number before sending to API
+      const cleanedFormData = {
+        ...formData,
+        phone: formData.phone.replace(/\s/g, ""), // Remove spaces before sending
+      };
 
-    // Reset form after success
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        service: "",
-        message: "",
+      const res = await fetch("/api/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(cleanedFormData), // Send cleaned data
       });
-    }, 3000);
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        // Handle validation errors from API
+        if (res.status === 400 && data.error) {
+          if (typeof data.error === "object" && data.error.fieldErrors) {
+            setErrors(data.error.fieldErrors);
+          } else {
+            setSubmitError(
+              data.error.message || "Please check your form inputs"
+            );
+          }
+        } else {
+          setSubmitError(
+            data.error || "Failed to send message. Please try again."
+          );
+        }
+        return;
+      }
+
+      setIsSubmitted(true);
+
+      // Reset form after success
+      setTimeout(() => {
+        setIsSubmitted(false);
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          service: "" as any,
+          message: "",
+        });
+        setErrors({});
+      }, 3000);
+    } catch (error) {
+      console.error("Submit error:", error);
+      setSubmitError(
+        "Network error. Please check your connection and try again."
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const services = [
@@ -258,6 +340,26 @@ const ModernContactPage = () => {
                 </p>
               </div>
 
+              {/* Submit Error Alert */}
+              {submitError && (
+                <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl flex items-start space-x-3">
+                  <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
+                  <div className="flex-1">
+                    <p className="text-sm text-red-700 dark:text-red-300">
+                      {submitError}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => setSubmitError("")}
+                    className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
+                    title="Dismiss error"
+                    aria-label="Dismiss error"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+              )}
+
               {isSubmitted ? (
                 <div className="text-center py-12 animate-fade-in">
                   <CheckCircle className="w-16 h-16 text-amber-500 mx-auto mb-4 animate-bounce" />
@@ -271,112 +373,121 @@ const ModernContactPage = () => {
               ) : (
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="group">
-                      <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                        <User className="inline w-4 h-4 mr-2" />
-                        First Name
-                      </label>
-                      <input
-                        type="text"
-                        name="firstName"
-                        value={formData.firstName}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 rounded-xl border bg-white/80 border-slate-300/50 text-slate-900 placeholder-slate-500 focus:ring-blue-600 hover:bg-white/90 dark:bg-slate-700/50 dark:border-slate-600/50 dark:text-white dark:placeholder-slate-400 dark:focus:ring-blue-500 dark:hover:bg-slate-700/70 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-300"
-                        placeholder="John"
-                        required
-                      />
-                    </div>
-                    <div className="group">
-                      <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                        <User className="inline w-4 h-4 mr-2" />
-                        Last Name
-                      </label>
-                      <input
-                        type="text"
-                        name="lastName"
-                        value={formData.lastName}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 rounded-xl border bg-white/80 border-slate-300/50 text-slate-900 placeholder-slate-500 focus:ring-blue-600 hover:bg-white/90 dark:bg-slate-700/50 dark:border-slate-600/50 dark:text-white dark:placeholder-slate-400 dark:focus:ring-blue-500 dark:hover:bg-slate-700/70 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-300"
-                        placeholder="Doe"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div className="group">
-                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                      <Mail className="inline w-4 h-4 mr-2" />
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 rounded-xl border bg-white/80 border-slate-300/50 text-slate-900 placeholder-slate-500 focus:ring-blue-600 hover:bg-white/90 dark:bg-slate-700/50 dark:border-slate-600/50 dark:text-white dark:placeholder-slate-400 dark:focus:ring-blue-500 dark:hover:bg-slate-700/70 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-300"
-                      placeholder="john.doe@example.com"
-                      required
+                    <InputField
+                      name="firstName"
+                      label="First Name"
+                      placeholder="John"
+                      icon={User}
+                      formData={formData}
+                      handleInputChange={handleInputChange}
+                      errors={errors}
+                    />
+                    <InputField
+                      name="lastName"
+                      label="Last Name"
+                      placeholder="Doe"
+                      icon={User}
+                      formData={formData}
+                      handleInputChange={handleInputChange}
+                      errors={errors}
                     />
                   </div>
 
-                  <div className="group">
-                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                      <Phone className="inline w-4 h-4 mr-2" />
-                      Phone
-                    </label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 rounded-xl border bg-white/80 border-slate-300/50 text-slate-900 placeholder-slate-500 focus:ring-blue-600 hover:bg-white/90 dark:bg-slate-700/50 dark:border-slate-600/50 dark:text-white dark:placeholder-slate-400 dark:focus:ring-blue-500 dark:hover:bg-slate-700/70 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-300"
-                      placeholder="+256 783 416 629"
-                      required
-                    />
-                  </div>
+                  <InputField
+                    name="email"
+                    label="Email"
+                    type="email"
+                    placeholder="john.doe@example.com"
+                    icon={Mail}
+                    formData={formData}
+                    handleInputChange={handleInputChange}
+                    errors={errors}
+                  />
+
+                  <InputField
+                    name="phone"
+                    label="Phone"
+                    type="tel"
+                    placeholder="+256783416629"
+                    icon={Phone}
+                    formData={formData}
+                    handleInputChange={handleInputChange}
+                    errors={errors}
+                  />
 
                   <div className="group">
                     <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                       <Building className="inline w-4 h-4 mr-2" />
                       Service of Interest
+                      <span className="text-red-500 ml-1">*</span>
                     </label>
-                    <select
-                      name="service"
+                    <Select
                       value={formData.service}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 rounded-xl border bg-white/80 border-slate-300/50 text-slate-900 placeholder-slate-500 focus:ring-blue-600 hover:bg-white/90 dark:bg-slate-700/50 dark:border-slate-600/50 dark:text-white dark:placeholder-slate-400 dark:focus:ring-blue-500 dark:hover:bg-slate-700/70 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-300"
-                      required
+                      onValueChange={(value) => {
+                        setFormData((prev) => ({
+                          ...prev,
+                          service: value as ContactFormValues["service"],
+                        }));
+                        if (errors.service) {
+                          setErrors((prev) => ({
+                            ...prev,
+                            service: undefined,
+                          }));
+                        }
+                      }}
                       aria-label="Service of Interest"
+                      required
                     >
-                      <option value="" className="bg-white dark:bg-slate-800">
-                        Select a service
-                      </option>
-                      {services.map((service) => (
-                        <option
-                          key={service.value}
-                          value={service.value}
-                          className="bg-white dark:bg-slate-800"
-                        >
-                          {service.label}
-                        </option>
-                      ))}
-                    </select>
+                      <SelectTrigger
+                        className={`w-full px-4 py-3 rounded-xl border bg-white/80 text-slate-900 hover:bg-white/90 dark:bg-slate-700/50 dark:text-white dark:hover:bg-slate-700/70 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-300 ${
+                          errors.service
+                            ? "border-red-500/50 focus:ring-red-500 dark:border-red-500/50"
+                            : "border-slate-300/50 focus:ring-blue-600 dark:border-slate-600/50 dark:focus:ring-blue-500"
+                        }`}
+                      >
+                        <SelectValue placeholder=" Select a service" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-background text-muted-foreground rounded-xl shadow-lg border border-slate-200 dark:border-slate-700">
+                        {services.map((service) => (
+                          <SelectItem key={service.value} value={service.value}>
+                            {service.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    {errors.service && (
+                      <div className="mt-1 flex items-center text-sm text-red-600 dark:text-red-400">
+                        <AlertCircle className="w-4 h-4 mr-1" />
+                        {errors.service}
+                      </div>
+                    )}
                   </div>
 
                   <div className="group">
-                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                    <Label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                       <MessageSquare className="inline w-4 h-4 mr-2" />
                       Message
-                    </label>
-                    <textarea
+                      <span className="text-red-500 ml-1">*</span>
+                    </Label>
+                    <Textarea
                       name="message"
                       value={formData.message}
                       onChange={handleInputChange}
                       rows={4}
-                      className="w-full px-4 py-3 rounded-xl border bg-white/80 border-slate-300/50 text-slate-900 placeholder-slate-500 focus:ring-blue-600 hover:bg-white/90 dark:bg-slate-700/50 dark:border-slate-600/50 dark:text-white dark:placeholder-slate-400 dark:focus:ring-blue-500 dark:hover:bg-slate-700/70 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-300 resize-none"
+                      className={`w-full px-4 py-3 rounded-xl border bg-white/80 text-slate-900 placeholder-slate-500 hover:bg-white/90 dark:bg-slate-700/50 dark:text-white dark:placeholder-slate-400 dark:hover:bg-slate-700/70 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-300 resize-none ${
+                        errors.message
+                          ? "border-red-500/50 focus:ring-red-500 dark:border-red-500/50"
+                          : "border-slate-300/50 focus:ring-blue-600 dark:border-slate-600/50 dark:focus:ring-blue-500"
+                      }`}
                       placeholder="Tell us about your needs..."
                       required
                     />
+                    {errors.message && (
+                      <div className="mt-1 flex items-center text-sm text-red-600 dark:text-red-400">
+                        <AlertCircle className="w-4 h-4 mr-1" />
+                        {errors.message}
+                      </div>
+                    )}
                   </div>
 
                   <button

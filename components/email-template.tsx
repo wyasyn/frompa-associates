@@ -5,7 +5,14 @@ type ContactFormValues = {
   lastName: string;
   email: string;
   phone: string;
-  service: "advisory" | "accounting" | "audit" | "tax" | "trade";
+  service:
+    | "audit"
+    | "tax"
+    | "accounting"
+    | "governance"
+    | "trade"
+    | "advisory"
+    | "hr";
   message: string;
 };
 
