@@ -125,7 +125,7 @@ export async function POST(req: Request) {
 
     // Send email via Resend
     const { data, error } = await resend.emails.send({
-      from: "Contact Form <contact@mail.frompaandassociates.com>",
+      from: "Contact Form <contact@frompaandassociates.com>",
       to: [sendTo],
       subject: `New Contact Form Submission - ${formData.service}`,
       react: ContactFormEmail({ ...formData }) as React.ReactElement,
