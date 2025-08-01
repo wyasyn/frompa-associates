@@ -115,69 +115,64 @@ const ModernContactPage = () => {
   };
 
   const handleSubmit = async () => {
-    // Validate form before submission
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
+
+    setIsLoading(true);
+    setSubmitError("");
+    setErrors({});
+
+    const cleanedFormData = {
+      ...formData,
+      phone: formData.phone.replace(/\s/g, ""), // Normalize phone number
+    };
 
     try {
-      setIsLoading(true);
-      setSubmitError("");
-
-      // Clean phone number before sending to API
-      const cleanedFormData = {
-        ...formData,
-        phone: formData.phone.replace(/\s/g, ""), // Remove spaces before sending
-      };
-
       const res = await fetch("/api/send", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(cleanedFormData), // Send cleaned data
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(cleanedFormData),
       });
 
-      const data = await res.json();
+      const result = await res.json();
 
-      if (!res.ok) {
-        // Handle validation errors from API
-        if (res.status === 400 && data.error) {
-          if (typeof data.error === "object" && data.error.fieldErrors) {
-            setErrors(data.error.fieldErrors);
-          } else {
-            setSubmitError(
-              data.error.message || "Please check your form inputs"
-            );
+      if (!res.ok || !result.success) {
+        console.warn("Form submission failed:", result);
+
+        // Handle structured validation errors
+        if (res.status === 400 && result?.error?.code === "VALIDATION_ERROR") {
+          const fieldErrors: Record<string, string> = {};
+          for (const err of result.error.details?.fields || []) {
+            fieldErrors[err.field] = err.message;
           }
+          setErrors(fieldErrors);
+          setSubmitError("Please correct the highlighted errors.");
         } else {
-          setSubmitError(
-            data.error || "Failed to send message. Please try again."
-          );
+          // General error fallback
+          setSubmitError(result.error?.message || "Something went wrong.");
         }
+
         return;
       }
 
+      // Success 🎉
       setIsSubmitted(true);
 
-      // Reset form after success
-      setTimeout(() => {
-        setIsSubmitted(false);
-        setFormData({
-          firstName: "",
-          lastName: "",
-          email: "",
-          phone: "",
-          service: "" as any,
-          message: "",
-        });
-        setErrors({});
-      }, 3000);
-    } catch (error) {
-      console.error("Submit error:", error);
-      setSubmitError(
-        "Network error. Please check your connection and try again."
-      );
+      // Reset form
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        service: "" as any,
+        message: "",
+      });
+      setErrors({});
+
+      // Hide success message after a few seconds
+      setTimeout(() => setIsSubmitted(false), 4000);
+    } catch (err) {
+      console.error("Unexpected error during submission:", err);
+      setSubmitError("Network error. Please try again later.");
     } finally {
       setIsLoading(false);
     }
