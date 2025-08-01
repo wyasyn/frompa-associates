@@ -48,7 +48,7 @@ export const ContactFormEmail: React.FC<ContactFormValues> = ({
           <Container className="max-w-2xl mx-auto border border-gray-200 rounded-lg overflow-hidden">
             <Section className="text-center py-6">
               <img
-                src="https://www.frompaandassociates.com/logo.webp"
+                src="https://www.frompaandassociates.com/android-chrome-512x512.png"
                 alt={`${COMPANY_NAME} Logo`}
                 width={128}
                 height={128}
