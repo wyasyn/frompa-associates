@@ -40,6 +40,7 @@ const quickLinks = [
   { name: "Careers", href: "/careers" },
   { name: "Insights", href: "/insights" },
   { name: "Contact Us", href: "/contact" },
+  { name: "Webmail", href: "/webmail" },
 ];
 
 const legalLinks = [
