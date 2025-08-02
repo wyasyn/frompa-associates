@@ -182,6 +182,12 @@ export function Header() {
                   >
                     Contact
                   </MobileNavLink>
+                  <MobileNavLink
+                    href="/webmail"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Webmail
+                  </MobileNavLink>
                 </nav>
               </SheetContent>
             </Sheet>
@@ -271,6 +277,9 @@ export function Header() {
 
               <NavLink href="/contact" isActive={isActiveLink("/contact")}>
                 Contact
+              </NavLink>
+              <NavLink href="/webmail" isActive={isActiveLink("/contact")}>
+                Webmail
               </NavLink>
 
               <div className="ml-2">
